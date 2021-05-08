@@ -13,6 +13,6 @@
     "require": {
         "jolicode/jolinotif": "^2.3",
 	"silverstripe/vendor-plugin": "^1.4",
-	"siverstripe/framework": "^4"
+	"silverstripe/framework": "^4"
     }
 }
