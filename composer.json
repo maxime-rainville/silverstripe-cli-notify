@@ -12,7 +12,12 @@
     "minimum-stability": "dev",
     "require": {
         "jolicode/jolinotif": "^2.3",
-	"silverstripe/vendor-plugin": "^1.4",
-	"silverstripe/framework": "^4"
+        "silverstripe/vendor-plugin": "^1.4",
+        "silverstripe/framework": "^4"
+    },
+    "autoload": {
+        "psr-4": {
+            "MaximeRainville\\SilverstripeCliNotify\\": "src/"
+        }
     }
 }

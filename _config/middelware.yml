@@ -1,0 +1,13 @@
+---
+Name: maxime-rainville-silverstripe-cli-notify
+After:
+  - '#errorrequestprocessors'
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Control\Director:
+    properties:
+      Middlewares:
+        NotifyMiddleware: '%$NotifyMiddleware'
+
+  NotifyMiddleware:
+    class: 'MaximeRainville\SilverstripeCliNotify\NotifyMiddleware'
