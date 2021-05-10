@@ -17,15 +17,13 @@ class NotifyMiddleware implements HTTPMiddleware
                 $response = $delegate($request);
                 $this->notify($request, $response);
                 return $response;
-            } catch (Exception $ex) {
-
+            } catch (\Exception $ex) {
                 $this->notifyError($request->getURL());
                 throw $ex;
             }
         }
 
-        $delegate($request);
-
+        return $delegate($request);
     }
 
     protected function notify(HTTPRequest $request, HTTPResponse $response): void
@@ -39,11 +37,11 @@ class NotifyMiddleware implements HTTPMiddleware
         if ($response->isError()) {
             $notification
                 ->setBody("ERROR $url")
-                ->setIcon(__DIR__.'/error.png');
+                ->setIcon(__DIR__.'/../icons/error.png');
         } else {
             $notification
                 ->setBody("DONE $url")
-                ->setIcon(__DIR__.'/success.png');
+                ->setIcon(__DIR__.'/../icons/success.png');
         }
 
         $notifier->send($notification);
@@ -56,7 +54,7 @@ class NotifyMiddleware implements HTTPMiddleware
         $notification
             ->setTitle('Silverstripe CMS')
             ->setBody("ERROR $url")
-            ->setIcon(__DIR__.'/error.png');
+            ->setIcon(__DIR__.'/../icons/error.png');
         $notifier->send($notification);
     }
 

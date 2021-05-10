@@ -1,7 +1,5 @@
 ---
 Name: maxime-rainville-silverstripe-cli-notify
-After:
-  - '#errorrequestprocessors'
 ---
 SilverStripe\Core\Injector\Injector:
   SilverStripe\Control\Director:
