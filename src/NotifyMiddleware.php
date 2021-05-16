@@ -12,7 +12,7 @@ class NotifyMiddleware implements HTTPMiddleware
 {
     public function process(HTTPRequest $request, callable $delegate)
     {
-        if (Director::is_cli() && preg_match('/^dev\//i', $request->getURL())) {
+        if (Director::is_cli() && preg_match('/^dev\//i', $request->getURL()) && !$this->isUnitTest()) {
             try {
                 $response = $delegate($request);
                 $this->notify($request, $response);
@@ -56,6 +56,20 @@ class NotifyMiddleware implements HTTPMiddleware
             ->setBody("ERROR $url")
             ->setIcon(__DIR__.'/../icons/error.png');
         $notifier->send($notification);
+    }
+
+    /**
+     * Attempts to guess if we are currently running in a Unit test context
+     */
+    protected function isUnitTest(): bool
+    {
+        if (!isset($_SERVER['SCRIPT_NAME'])) {
+            return false;
+        }
+
+        $script = $_SERVER['SCRIPT_NAME'];
+
+        return $script === './tests/cli-script.php';
     }
 
 }
